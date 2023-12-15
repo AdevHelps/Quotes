@@ -5,23 +5,13 @@
     android:id="@+id/updateQuoteMainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.EnterQuoteActivity">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/updateQuoteActivityToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context="view.UpdateQuoteFragment">
 
     <TextView
         android:id="@+id/updateQuoteTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginEnd="@dimen/_20sdp"
         android:text="@string/update_quote"
@@ -31,7 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/updateQuoteActivityToolbar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/updatedQuoteEditeText"

@@ -13,19 +13,7 @@
         android:theme="@style/Theme.Quotes"
         tools:targetApi="31">
         <activity
-            android:name=".view.UpdateQuoteActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"
-            android:exported="false"/>
-        <activity
-            android:name=".view.EnterQuoteActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"
-            android:exported="false"/>
-        <activity
-            android:name=".view.MainActivity"
+            android:name=".FragmentsContainerActivity"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"
