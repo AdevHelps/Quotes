@@ -16,13 +16,16 @@ Quotes is an app designed to help you save and revisit your favorite quotes. Thi
 </table>
 
 ## How to use
-- Long click to delete the quote
+Long click to delete the quote
 
 ## Considerations
-- Quotes only uses the dark theme
+Quotes only uses the dark theme
 
 ## About the app
-Quotes uses SQLite database to manage the CRUD operation
+Quotes uses:
+- SQLite database
+- MVVM architecture pattern
+- Navigation component library of Android Jetpack
 
 ## Contact us
-If you have any issues, questions, or suggestions, please feel free to contact Adev at adevhelps@gmail.com 
+If you have any issues, questions, or suggestions, please feel free to contact Adev at adevhelps@gmail.com
