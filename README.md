@@ -8,10 +8,10 @@ Quotes is an app designed to help you save and revisit your favorite quotes. Thi
 # Screenshots:
 <table>
    <tr>
-    <td align="center"><img src="https://github.com/Drag-a/Quotes/assets/145349429/532dd36e-387c-4fc1-8a26-93d5a666c272" width="300" alt="Screenshot 1"></td>
-   <td align="center"><img src="https://github.com/Drag-a/Quotes/assets/145349429/14c0c5ca-71fa-4a30-ad69-62c0abaf565d" width="300" alt="Screenshot 1"></td>
-    <td align="center"><img src="https://github.com/Drag-a/Quotes/assets/145349429/1b601c6b-258b-4106-a34b-5a979ade52b2" width="300" alt="Screenshot 1"></td>
-    <td align="center"><img src="https://github.com/Drag-a/Quotes/assets/145349429/3c2ad9b9-6790-4ff1-8db0-ec73e3fd1ba7" width="300" alt="Screenshot 1"></td> 
+    <td align="center"><img src="https://github.com/AdevHelps/Quotes/assets/149101953/81cc0a21-cedb-4b1d-9c6d-c16ae6c5c693" width="300" alt="Screenshot 1"></td>
+   <td align="center"><img src="https://github.com/AdevHelps/Quotes/assets/149101953/c726bd0c-408a-4cbf-a862-edeacf283f0b" width="300" alt="Screenshot 1"></td>
+    <td align="center"><img src="https://github.com/AdevHelps/Quotes/assets/149101953/fe9050a8-2cf3-4bb0-b23a-cc9217a0e23d" width="300" alt="Screenshot 1"></td>
+    <td align="center"><img src="https://github.com/AdevHelps/Quotes/assets/149101953/f84b813f-4cef-4533-abb7-d8ec26a4045e" width="300" alt="Screenshot 1"></td> 
   </tr>
 </table>
 
