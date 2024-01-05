@@ -1,5 +1,6 @@
 package com.example.quotes.view
 
+import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
@@ -11,9 +12,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.quotes.FragmentToActivityCommunicationInterface
 import com.example.quotes.QuotesModel
-import com.example.quotes.QuotesViewModel
+import com.example.quotes.viewmodel.QuotesViewModel
 import com.example.quotes.R
 import com.example.quotes.databinding.FragmentUpdateQuoteBinding
+import com.example.quotes.viewmodel.QuotesViewModelFactory
 
 class UpdateQuoteFragment : Fragment(R.layout.fragment_update_quote) {
 
@@ -36,8 +38,11 @@ class UpdateQuoteFragment : Fragment(R.layout.fragment_update_quote) {
             outdatedQuote = args.quote
             updatedQuoteEditeText.text = Editable.Factory.getInstance().newEditable(outdatedQuote)
 
+            val application = Application()
+            val quotesViewModelFactory = QuotesViewModelFactory(application)
             quotesViewModel = ViewModelProvider(
-                this@UpdateQuoteFragment
+                this@UpdateQuoteFragment,
+                quotesViewModelFactory,
             )[QuotesViewModel::class.java]
 
             updatedQuote = updatedQuoteEditeText.text

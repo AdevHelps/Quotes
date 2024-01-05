@@ -1,6 +1,7 @@
 package com.example.quotes.view
 
 
+import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import android.view.View
@@ -11,11 +12,12 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quotes.FragmentToActivityCommunicationInterface
 import com.example.quotes.QuotesModel
-import com.example.quotes.QuotesViewModel
+import com.example.quotes.viewmodel.QuotesViewModel
 import com.example.quotes.R
 import com.example.quotes.databinding.FragmentMainBinding
 import com.example.quotes.recyclerview.RecyclerViewAdapter
 import com.example.quotes.recyclerview.RecyclerViewClickEventHandling
+import com.example.quotes.viewmodel.QuotesViewModelFactory
 
 class MainFragment : Fragment(R.layout.fragment_main), RecyclerViewClickEventHandling {
 
@@ -41,7 +43,12 @@ class MainFragment : Fragment(R.layout.fragment_main), RecyclerViewClickEventHan
                 findNavController().navigate(R.id.action_mainFragment_to_enterQuoteFragment)
             }
 
-            quotesViewModel = ViewModelProvider(this@MainFragment)[QuotesViewModel::class.java]
+            val application = Application()
+            val quotesViewModelFactory = QuotesViewModelFactory(application)
+            quotesViewModel = ViewModelProvider(
+                this@MainFragment,
+                quotesViewModelFactory,
+            )[QuotesViewModel::class.java]
             quotesViewModel.recyclerViewDataList().observe(requireActivity()) { quotesList ->
 
                 adapter = RecyclerViewAdapter(quotesList, this@MainFragment)

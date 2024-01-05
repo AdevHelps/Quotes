@@ -1,8 +1,10 @@
-package com.example.quotes
+package com.example.quotes.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.example.quotes.QuotesModel
+import com.example.quotes.QuotesRepository
 
 class QuotesViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -12,7 +14,7 @@ class QuotesViewModel(application: Application) : AndroidViewModel(application) 
         repository.quoteToDb(quotesModel)
     }
 
-    fun updatedQuoteToRepository(currentQuote:QuotesModel, newQuote: QuotesModel){
+    fun updatedQuoteToRepository(currentQuote: QuotesModel, newQuote: QuotesModel){
         repository.updateQuoteInDb(currentQuote, newQuote)
     }
 

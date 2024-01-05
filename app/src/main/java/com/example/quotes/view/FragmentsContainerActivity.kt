@@ -1,9 +1,10 @@
-package com.example.quotes
+package com.example.quotes.view
 
 
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.quotes.FragmentToActivityCommunicationInterface
 import com.example.quotes.databinding.ActivityFragmentsContainerBinding
 import com.google.android.material.snackbar.Snackbar
 

@@ -1,5 +1,6 @@
 package com.example.quotes.view
 
+import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
@@ -10,9 +11,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.quotes.FragmentToActivityCommunicationInterface
 import com.example.quotes.QuotesModel
-import com.example.quotes.QuotesViewModel
+import com.example.quotes.viewmodel.QuotesViewModel
 import com.example.quotes.R
 import com.example.quotes.databinding.FragmentCreateQuoteBinding
+import com.example.quotes.viewmodel.QuotesViewModelFactory
 
 class CreateQuoteFragment: Fragment(R.layout.fragment_create_quote) {
 
@@ -31,7 +33,12 @@ class CreateQuoteFragment: Fragment(R.layout.fragment_create_quote) {
             quoteET.setSelection(quoteET.text.length)
             quoteEditTextField = binding.quoteET.text
 
-            quotesViewModel = ViewModelProvider(this@CreateQuoteFragment)[QuotesViewModel::class.java]
+            val application = Application()
+            val quotesViewModelFactory = QuotesViewModelFactory(application)
+            quotesViewModel = ViewModelProvider(
+                this@CreateQuoteFragment,
+                quotesViewModelFactory
+            )[QuotesViewModel::class.java]
 
             insertQuoteFAB.setOnClickListener {
                 val quote = binding.quoteET.text.toString()
