@@ -16,10 +16,7 @@ class FragmentsContainerActivity : AppCompatActivity(), FragmentToActivityCommun
         super.onCreate(savedInstanceState)
         binding = ActivityFragmentsContainerBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.apply {
 
-
-        }
     }
 
     override fun showSnackBar(message: String) {
@@ -27,5 +24,4 @@ class FragmentsContainerActivity : AppCompatActivity(), FragmentToActivityCommun
             it.setBackgroundTint(Color.parseColor("#808080"))
         }.show()
     }
-
 }

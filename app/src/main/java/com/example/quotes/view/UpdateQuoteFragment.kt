@@ -92,13 +92,11 @@ class UpdateQuoteFragment : Fragment(R.layout.fragment_update_quote) {
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
 
-
     }
 
     override fun onDetach() {
         super.onDetach()
         fragmentToActivityCommunicationInterface = null
     }
-
 }
 

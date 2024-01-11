@@ -26,5 +26,4 @@ class QuotesViewModel(application: Application) : AndroidViewModel(application) 
     fun requestQuoteDeleteToRepository(quote: QuotesModel){
         repository.deleteQuoteFromDb(quote)
     }
-
 }

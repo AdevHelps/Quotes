@@ -19,7 +19,7 @@ class CheckingToCancelQuoteDialogFragment : DialogFragment() {
                             "<font color='#4285F4'>CANCEL</font>",
                             HtmlCompat.FROM_HTML_MODE_LEGACY
                         )
-                ) { dialog, id ->
+                ) { dialog, _ ->
                     dialog.dismiss()
 
                 }
@@ -29,8 +29,9 @@ class CheckingToCancelQuoteDialogFragment : DialogFragment() {
                             "<font color='#4285F4'>QUIT</font>",
                             HtmlCompat.FROM_HTML_MODE_LEGACY
                         )
-                )  { dialog, id ->
+                )  { dialog, _ ->
 
+                    dialog.dismiss()
                     findNavController().popBackStack()
 
                 }
@@ -39,5 +40,4 @@ class CheckingToCancelQuoteDialogFragment : DialogFragment() {
 
         } ?: throw IllegalStateException("Activity cannot be null")
     }
-
 }
