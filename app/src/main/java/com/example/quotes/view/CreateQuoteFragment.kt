@@ -1,6 +1,5 @@
 package com.example.quotes.view
 
-import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
@@ -10,10 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.quotes.FragmentToActivityCommunicationInterface
-import com.example.quotes.QuotesModel
+import com.example.quotes.QuoteModel
 import com.example.quotes.viewmodel.QuotesViewModel
 import com.example.quotes.R
 import com.example.quotes.databinding.FragmentCreateQuoteBinding
+import com.example.quotes.repository.QuotesRepositoryImpl
+import com.example.quotes.repository.QuotesRepositoryInterface
 import com.example.quotes.viewmodel.QuotesViewModelFactory
 
 class CreateQuoteFragment: Fragment(R.layout.fragment_create_quote) {
@@ -33,8 +34,9 @@ class CreateQuoteFragment: Fragment(R.layout.fragment_create_quote) {
             quoteET.setSelection(quoteET.text.length)
             quoteEditTextField = binding.quoteET.text
 
-            val application = Application()
-            val quotesViewModelFactory = QuotesViewModelFactory(application)
+            val applicationContext = requireContext().applicationContext
+            val quotesRepositoryInterface: QuotesRepositoryInterface = QuotesRepositoryImpl(applicationContext)
+            val quotesViewModelFactory = QuotesViewModelFactory(quotesRepositoryInterface)
             quotesViewModel = ViewModelProvider(
                 this@CreateQuoteFragment,
                 quotesViewModelFactory
@@ -47,13 +49,11 @@ class CreateQuoteFragment: Fragment(R.layout.fragment_create_quote) {
                     fragmentToActivityCommunicationInterface?.showSnackBar("Empty field")
 
                 } else {
-                    val quoteEncapsulated = QuotesModel(quote.trim())
+                    val quoteEncapsulated = QuoteModel(quote.trim())
                     quotesViewModel.quoteToRepository(quoteEncapsulated)
                     findNavController().navigate(R.id.action_enterQuoteFragment_to_mainFragment)
                 }
-
             }
-
         }
     }
 
@@ -86,5 +86,4 @@ class CreateQuoteFragment: Fragment(R.layout.fragment_create_quote) {
         fragmentToActivityCommunicationInterface = null
 
     }
-
 }

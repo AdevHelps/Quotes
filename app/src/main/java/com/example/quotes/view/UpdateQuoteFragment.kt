@@ -1,6 +1,5 @@
 package com.example.quotes.view
 
-import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
@@ -11,10 +10,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.quotes.FragmentToActivityCommunicationInterface
-import com.example.quotes.QuotesModel
+import com.example.quotes.QuoteModel
 import com.example.quotes.viewmodel.QuotesViewModel
 import com.example.quotes.R
 import com.example.quotes.databinding.FragmentUpdateQuoteBinding
+import com.example.quotes.repository.QuotesRepositoryImpl
+import com.example.quotes.repository.QuotesRepositoryInterface
 import com.example.quotes.viewmodel.QuotesViewModelFactory
 
 class UpdateQuoteFragment : Fragment(R.layout.fragment_update_quote) {
@@ -38,8 +39,9 @@ class UpdateQuoteFragment : Fragment(R.layout.fragment_update_quote) {
             outdatedQuote = args.quote
             updatedQuoteEditeText.text = Editable.Factory.getInstance().newEditable(outdatedQuote)
 
-            val application = Application()
-            val quotesViewModelFactory = QuotesViewModelFactory(application)
+            val applicationContext = requireContext().applicationContext
+            val quotesRepositoryInterface: QuotesRepositoryInterface = QuotesRepositoryImpl(applicationContext)
+            val quotesViewModelFactory = QuotesViewModelFactory(quotesRepositoryInterface)
             quotesViewModel = ViewModelProvider(
                 this@UpdateQuoteFragment,
                 quotesViewModelFactory,
@@ -54,8 +56,8 @@ class UpdateQuoteFragment : Fragment(R.layout.fragment_update_quote) {
                 }
 
                 if (updatedQuote.toString() != outdatedQuote) {
-                    val outdatedQuoteEncapsulated = QuotesModel(outdatedQuote)
-                    val updatedQuoteEncapsulated = QuotesModel(updatedQuote.toString().trim())
+                    val outdatedQuoteEncapsulated = QuoteModel(outdatedQuote)
+                    val updatedQuoteEncapsulated = QuoteModel(updatedQuote.toString().trim())
                     quotesViewModel.updatedQuoteToRepository(
                         outdatedQuoteEncapsulated,
                         updatedQuoteEncapsulated

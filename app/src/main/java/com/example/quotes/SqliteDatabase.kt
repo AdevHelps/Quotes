@@ -4,11 +4,11 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import androidx.lifecycle.MutableLiveData
+import android.util.Log
 
 class SqliteDatabase(
-    context: Context,
-) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+    context: Context
+): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
 
@@ -18,7 +18,6 @@ class SqliteDatabase(
         private const val QUOTES_TABLE = "QuotesTable"
         private const val ID_COLUMN = "QuoteId"
         private const val QUOTES_COLUMN = "Quote"
-
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -29,45 +28,40 @@ class SqliteDatabase(
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+        //TODO
     }
 
-    fun insertQuote(quote: QuotesModel) {
+    fun insertQuote(quote: QuoteModel) {
         val sqliteDatabase = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put(QUOTES_COLUMN, quote.quote)
         sqliteDatabase.insert(QUOTES_TABLE, null, contentValues)
-
     }
 
-    fun updateQuote(currentQuote: QuotesModel, newQuote: QuotesModel) {
+    fun updateQuote(currentQuote: QuoteModel, newQuote: QuoteModel) {
         val sqliteDatabase = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put(QUOTES_COLUMN, newQuote.quote)
         sqliteDatabase.update(QUOTES_TABLE, contentValues, "Quote=?", arrayOf(currentQuote.quote))
-
     }
 
-    fun retrieveAllQuotes(): MutableLiveData<MutableList<QuotesModel>> {
+    fun retrieveAllQuotes(): MutableList<QuoteModel> {
         val sqliteDatabase = this.readableDatabase
         val cursor = sqliteDatabase.rawQuery("SELECT * FROM $QUOTES_TABLE", null)
-        val quotesLiveData = MutableLiveData<MutableList<QuotesModel>>()
-        val quotesList = mutableListOf<QuotesModel>()
+        val quotesList = mutableListOf<QuoteModel>()
         while (cursor.moveToNext()) {
             val retrievedQuote = cursor.getString(cursor.getColumnIndexOrThrow(QUOTES_COLUMN))
 
-            val quote = QuotesModel(retrievedQuote)
+            val quote = QuoteModel(retrievedQuote)
             quotesList.add(quote)
 
         }
-        quotesLiveData.value = quotesList
         cursor.close()
-        return quotesLiveData
-
+        return quotesList
     }
 
-    fun deleteQuote(quote: QuotesModel) {
+    fun deleteQuote(quote: QuoteModel) {
         val sqliteDatabase = this.writableDatabase
         sqliteDatabase.delete(QUOTES_TABLE, "Quote=?", arrayOf(quote.quote))
-
     }
 }
