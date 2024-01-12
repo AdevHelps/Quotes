@@ -3,11 +3,11 @@ package com.example.quotes.recyclerview
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.quotes.QuotesModel
+import com.example.quotes.QuoteModel
 import com.example.quotes.databinding.RecyclerviewRowDesignBinding
 
 class RecyclerViewAdapter(
-    private val quotesList: MutableList<QuotesModel>,
+    private val quotesList: MutableList<QuoteModel>,
     private val recyclerViewClickEventHandling: RecyclerViewClickEventHandling,
 ): RecyclerView.Adapter<RecyclerViewAdapter.QuotesViewHolder>() {
 
@@ -35,11 +35,11 @@ class RecyclerViewAdapter(
 
     class QuotesViewHolder(
         val binding: RecyclerviewRowDesignBinding,
-        private val quotesList: MutableList<QuotesModel>,
+        private val quotesList: MutableList<QuoteModel>,
         private val rvClickEvenHandling: RecyclerViewClickEventHandling
-    ) : RecyclerView.ViewHolder(binding.root) {
+    ): RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(quote: QuotesModel) {
+        fun bind(quote: QuoteModel) {
             binding.quoteCardView.setOnClickListener {
                 rvClickEvenHandling.onRvItemClick(adapterPosition, quote)
             }

@@ -1,29 +1,27 @@
 package com.example.quotes.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.example.quotes.QuotesModel
-import com.example.quotes.QuotesRepository
+import androidx.lifecycle.ViewModel
+import com.example.quotes.QuoteModel
+import com.example.quotes.repository.QuotesRepositoryInterface
 
-class QuotesViewModel(application: Application) : AndroidViewModel(application) {
+class QuotesViewModel(val quotesRepositoryInterface: QuotesRepositoryInterface) : ViewModel() {
 
-    private val repository = QuotesRepository(application)
-
-    fun quoteToRepository(quotesModel: QuotesModel){
-        repository.quoteToDb(quotesModel)
+    fun quoteToRepository(quotesModel: QuoteModel){
+        quotesRepositoryInterface.quoteToDb(quotesModel)
     }
 
-    fun updatedQuoteToRepository(currentQuote: QuotesModel, newQuote: QuotesModel){
-        repository.updateQuoteInDb(currentQuote, newQuote)
+    fun updatedQuoteToRepository(currentQuote: QuoteModel, newQuote: QuoteModel){
+        quotesRepositoryInterface.updateQuoteInDb(currentQuote, newQuote)
     }
 
-    fun recyclerViewDataList(): MutableLiveData<MutableList<QuotesModel>> {
-        return repository.retrievedQuotesFromDb()
-
+    fun getQuotesListFromRepository(): MutableLiveData<MutableList<QuoteModel>> {
+        val quotesMutableLiveData = MutableLiveData<MutableList<QuoteModel>>()
+        quotesMutableLiveData.value = quotesRepositoryInterface.retrievedQuotesFromDb()
+        return quotesMutableLiveData
     }
 
-    fun requestQuoteDeleteToRepository(quote: QuotesModel){
-        repository.deleteQuoteFromDb(quote)
+    fun requestQuoteDeleteToRepository(quote: QuoteModel){
+        quotesRepositoryInterface.deleteQuoteFromDb(quote)
     }
 }
