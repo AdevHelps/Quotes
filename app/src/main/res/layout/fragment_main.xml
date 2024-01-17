@@ -5,7 +5,7 @@
     android:id="@+id/mainActivityMainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.FragmentsContainerActivity">
+    tools:context=".ui.FragmentsContainerActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/mainToolbar"
@@ -16,17 +16,7 @@
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/quotes"
-            android:textColor="@color/milkyYellow"
-            android:textSize="@dimen/_17ssp"
-            android:textStyle="bold" />
-
-    </androidx.appcompat.widget.Toolbar>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <LinearLayout
         android:id="@+id/no_items_linear_layout"
