@@ -1,4 +1,4 @@
-package com.example.quotes.repository
+package com.example.quotes.domain.repository
 
 import com.example.quotes.QuoteModel
 

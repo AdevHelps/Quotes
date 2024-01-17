@@ -8,7 +8,7 @@ import com.example.quotes.databinding.RecyclerviewRowDesignBinding
 
 class RecyclerViewAdapter(
     private val quotesList: MutableList<QuoteModel>,
-    private val recyclerViewClickEventHandling: RecyclerViewClickEventHandling,
+    private val recyclerViewClickEventHandling: RecyclerViewClickEventHandlingInterface,
 ): RecyclerView.Adapter<RecyclerViewAdapter.QuotesViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuotesViewHolder {
@@ -36,7 +36,7 @@ class RecyclerViewAdapter(
     class QuotesViewHolder(
         val binding: RecyclerviewRowDesignBinding,
         private val quotesList: MutableList<QuoteModel>,
-        private val rvClickEvenHandling: RecyclerViewClickEventHandling
+        private val rvClickEvenHandling: RecyclerViewClickEventHandlingInterface
     ): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(quote: QuoteModel) {

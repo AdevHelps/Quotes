@@ -1,8 +1,8 @@
-package com.example.quotes.repository
+package com.example.quotes.domain.repository
 
 import android.content.Context
 import com.example.quotes.QuoteModel
-import com.example.quotes.SqliteDatabase
+import com.example.quotes.data.SqliteDatabase
 
 class QuotesRepositoryImpl(context: Context): QuotesRepositoryInterface {
 

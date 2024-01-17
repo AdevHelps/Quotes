@@ -1,56 +1,53 @@
-package com.example.quotes.view
-
+package com.example.quotes.ui.view
 
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.quotes.FragmentToActivityCommunicationInterface
-import com.example.quotes.QuoteModel
-import com.example.quotes.viewmodel.QuotesViewModel
+import com.example.quotes.ui.FragmentToActivityCommunicationInterface
+import com.example.quotes.data.Quote
+import com.example.quotes.domain.QuotesViewModel
 import com.example.quotes.R
 import com.example.quotes.databinding.FragmentMainBinding
-import com.example.quotes.recyclerview.RecyclerViewAdapter
-import com.example.quotes.recyclerview.RecyclerViewClickEventHandling
-import com.example.quotes.repository.QuotesRepositoryImpl
-import com.example.quotes.repository.QuotesRepositoryInterface
-import com.example.quotes.viewmodel.QuotesViewModelFactory
+import com.example.quotes.ui.recyclerview.RecyclerViewAdapter
+import com.example.quotes.ui.recyclerview.RecyclerViewClickEventHandlingInterface
 
-class MainFragment : Fragment(R.layout.fragment_main), RecyclerViewClickEventHandling {
+class MainFragment : Fragment(R.layout.fragment_main), RecyclerViewClickEventHandlingInterface {
 
     private lateinit var binding: FragmentMainBinding
-    private lateinit var quotesViewModel: QuotesViewModel
     private lateinit var adapter: RecyclerViewAdapter
-    private var fragmentToActivityCommunicationInterface: FragmentToActivityCommunicationInterface? =
-        null
+    private lateinit var fragmentToActivityCommunicationInterface: FragmentToActivityCommunicationInterface
+    private lateinit var quotesViewModel: QuotesViewModel
     private val args: MainFragmentArgs by navArgs()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        fragmentToActivityCommunicationInterface = context as FragmentToActivityCommunicationInterface
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentMainBinding.bind(view)
         binding.apply {
 
+//                    bold
+            mainToolbar.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.milkyYellow))
+            mainToolbar.title = "Quotes"
+
             val isUpdated = args.isUpdated
             if (isUpdated) {
-                fragmentToActivityCommunicationInterface?.showSnackBar("Not modified")
+                fragmentToActivityCommunicationInterface.showSnackBar("Not modified")
             }
 
             addQuoteFAB.setOnClickListener {
                 findNavController().navigate(R.id.action_mainFragment_to_enterQuoteFragment)
             }
 
-            val applicationContext = requireContext().applicationContext
-            val quotesRepositoryInterface: QuotesRepositoryInterface = QuotesRepositoryImpl(applicationContext)
-            val quotesViewModelFactory = QuotesViewModelFactory(quotesRepositoryInterface)
-            quotesViewModel = ViewModelProvider(
-                this@MainFragment,
-                quotesViewModelFactory,
-            )[QuotesViewModel::class.java]
+            quotesViewModel = fragmentToActivityCommunicationInterface.initializeQuotesViewModel()
             quotesViewModel.getQuotesListFromRepository().observe(requireActivity()) { quotesList ->
 
                 adapter = RecyclerViewAdapter(quotesList, this@MainFragment)
@@ -64,13 +61,13 @@ class MainFragment : Fragment(R.layout.fragment_main), RecyclerViewClickEventHan
         }
     }
 
-    override fun onRvItemClick(position: Int, quote: QuoteModel) {
+    override fun onRvItemClick(position: Int, quote: Quote) {
         val action =
             MainFragmentDirections.actionMainFragmentToUpdateQuoteFragment(quote.quote)
         findNavController().navigate(action)
     }
 
-    override fun onRvItemLongClick(position: Int, quotesList: MutableList<QuoteModel>) {
+    override fun onRvItemLongClick(position: Int, quotesList: MutableList<Quote>) {
         quotesViewModel.requestQuoteDeleteToRepository(quotesList[position])
         quotesList.removeAt(position)
         adapter.notifyItemRemoved(position)
@@ -78,15 +75,5 @@ class MainFragment : Fragment(R.layout.fragment_main), RecyclerViewClickEventHan
         if (quotesList.size == 0) {
             binding.noItemsLinearLayout.visibility = View.VISIBLE
         }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        fragmentToActivityCommunicationInterface = context as FragmentToActivityCommunicationInterface
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        fragmentToActivityCommunicationInterface = null
     }
 }

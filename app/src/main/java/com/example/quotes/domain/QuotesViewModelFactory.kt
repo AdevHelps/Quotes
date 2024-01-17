@@ -1,8 +1,8 @@
-package com.example.quotes.viewmodel
+package com.example.quotes.domain.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.quotes.repository.QuotesRepositoryInterface
+import com.example.quotes.data.repository.QuotesRepositoryInterface
 import java.lang.IllegalArgumentException
 
 class QuotesViewModelFactory(
