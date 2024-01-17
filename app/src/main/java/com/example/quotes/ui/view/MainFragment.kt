@@ -34,9 +34,8 @@ class MainFragment : Fragment(R.layout.fragment_main), RecyclerViewClickEventHan
         binding = FragmentMainBinding.bind(view)
         binding.apply {
 
-//                    bold
             mainToolbar.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.milkyYellow))
-            mainToolbar.title = "Quotes"
+            mainToolbar.title = ContextCompat.getString(requireContext(), R.string.app_name)
 
             val isUpdated = args.isUpdated
             if (isUpdated) {
