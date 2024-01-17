@@ -1,26 +1,26 @@
-package com.example.quotes.domain.repository
+package com.example.quotes.data.repository
 
 import android.content.Context
-import com.example.quotes.QuoteModel
+import com.example.quotes.data.Quote
 import com.example.quotes.data.SqliteDatabase
 
 class QuotesRepositoryImpl(context: Context): QuotesRepositoryInterface {
 
     private var sqliteDatabase = SqliteDatabase(context)
 
-    override fun quoteToDb(quotesModel: QuoteModel) {
-        sqliteDatabase.insertQuote(quotesModel)
+    override fun quoteToDb(quote: Quote) {
+        sqliteDatabase.insertQuote(quote)
     }
 
-    override fun updateQuoteInDb(currentQuote: QuoteModel, newQuote: QuoteModel) {
+    override fun updateQuoteInDb(currentQuote: Quote, newQuote: Quote) {
         sqliteDatabase.updateQuote(currentQuote, newQuote)
     }
 
-    override fun retrievedQuotesFromDb(): MutableList<QuoteModel> {
+    override fun retrievedQuotesFromDb(): MutableList<Quote> {
         return sqliteDatabase.retrieveAllQuotes()
     }
 
-    override fun deleteQuoteFromDb(quote: QuoteModel) {
+    override fun deleteQuoteFromDb(quote: Quote) {
         sqliteDatabase.deleteQuote(quote)
     }
 }

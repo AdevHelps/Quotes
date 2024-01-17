@@ -1,10 +1,10 @@
-package com.example.quotes.recyclerview
+package com.example.quotes.ui.recyclerview
 
-import com.example.quotes.QuoteModel
+import com.example.quotes.data.Quote
 
 interface RecyclerViewClickEventHandlingInterface {
 
-    fun onRvItemClick(position: Int, quote: QuoteModel)
-    fun onRvItemLongClick(position: Int, quotesList: MutableList<QuoteModel>)
+    fun onRvItemClick(position: Int, quote: Quote)
+    fun onRvItemLongClick(position: Int, quotesList: MutableList<Quote>)
 
 }

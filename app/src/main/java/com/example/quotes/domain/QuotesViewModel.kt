@@ -1,4 +1,4 @@
-package com.example.quotes.domain.viewmodel
+package com.example.quotes.domain
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

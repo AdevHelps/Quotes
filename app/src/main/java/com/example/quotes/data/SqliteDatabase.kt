@@ -1,10 +1,9 @@
-package com.example.quotes
+package com.example.quotes.data
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.util.Log
 
 class SqliteDatabase(
     context: Context
@@ -31,28 +30,28 @@ class SqliteDatabase(
         //TODO
     }
 
-    fun insertQuote(quote: QuoteModel) {
+    fun insertQuote(quote: Quote) {
         val sqliteDatabase = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put(QUOTES_COLUMN, quote.quote)
         sqliteDatabase.insert(QUOTES_TABLE, null, contentValues)
     }
 
-    fun updateQuote(currentQuote: QuoteModel, newQuote: QuoteModel) {
+    fun updateQuote(currentQuote: Quote, newQuote: Quote) {
         val sqliteDatabase = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put(QUOTES_COLUMN, newQuote.quote)
         sqliteDatabase.update(QUOTES_TABLE, contentValues, "Quote=?", arrayOf(currentQuote.quote))
     }
 
-    fun retrieveAllQuotes(): MutableList<QuoteModel> {
+    fun retrieveAllQuotes(): MutableList<Quote> {
         val sqliteDatabase = this.readableDatabase
         val cursor = sqliteDatabase.rawQuery("SELECT * FROM $QUOTES_TABLE", null)
-        val quotesList = mutableListOf<QuoteModel>()
+        val quotesList = mutableListOf<Quote>()
         while (cursor.moveToNext()) {
             val retrievedQuote = cursor.getString(cursor.getColumnIndexOrThrow(QUOTES_COLUMN))
 
-            val quote = QuoteModel(retrievedQuote)
+            val quote = Quote(retrievedQuote)
             quotesList.add(quote)
 
         }
@@ -60,7 +59,7 @@ class SqliteDatabase(
         return quotesList
     }
 
-    fun deleteQuote(quote: QuoteModel) {
+    fun deleteQuote(quote: Quote) {
         val sqliteDatabase = this.writableDatabase
         sqliteDatabase.delete(QUOTES_TABLE, "Quote=?", arrayOf(quote.quote))
     }

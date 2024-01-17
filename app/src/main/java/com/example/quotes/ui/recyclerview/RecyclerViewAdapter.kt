@@ -1,13 +1,13 @@
-package com.example.quotes.recyclerview
+package com.example.quotes.ui.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.quotes.QuoteModel
+import com.example.quotes.data.Quote
 import com.example.quotes.databinding.RecyclerviewRowDesignBinding
 
 class RecyclerViewAdapter(
-    private val quotesList: MutableList<QuoteModel>,
+    private val quotesList: MutableList<Quote>,
     private val recyclerViewClickEventHandling: RecyclerViewClickEventHandlingInterface,
 ): RecyclerView.Adapter<RecyclerViewAdapter.QuotesViewHolder>() {
 
@@ -17,7 +17,7 @@ class RecyclerViewAdapter(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            ), quotesList, recyclerViewClickEventHandling
+            )
         )
     }
 
@@ -33,21 +33,19 @@ class RecyclerViewAdapter(
         }
     }
 
-    class QuotesViewHolder(
-        val binding: RecyclerviewRowDesignBinding,
-        private val quotesList: MutableList<QuoteModel>,
-        private val rvClickEvenHandling: RecyclerViewClickEventHandlingInterface
+    inner class QuotesViewHolder(
+        val binding: RecyclerviewRowDesignBinding
     ): RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(quote: QuoteModel) {
+        fun bind(quote: Quote) {
             binding.quoteCardView.setOnClickListener {
-                rvClickEvenHandling.onRvItemClick(adapterPosition, quote)
+                recyclerViewClickEventHandling.onRvItemClick(adapterPosition, quote)
             }
         }
 
         init {
             binding.quoteCardView.setOnLongClickListener {
-                rvClickEvenHandling.onRvItemLongClick(adapterPosition, quotesList)
+                recyclerViewClickEventHandling.onRvItemLongClick(adapterPosition, quotesList)
                 true
             }
         }

@@ -1,15 +1,15 @@
-package com.example.quotes.domain.repository
+package com.example.quotes.data.repository
 
-import com.example.quotes.QuoteModel
+import com.example.quotes.data.Quote
 
 interface QuotesRepositoryInterface {
 
-    fun quoteToDb(quotesModel: QuoteModel)
+    fun quoteToDb(quote: Quote)
 
-    fun updateQuoteInDb(currentQuote: QuoteModel, newQuote: QuoteModel)
+    fun updateQuoteInDb(currentQuote: Quote, newQuote: Quote)
 
-    fun retrievedQuotesFromDb(): MutableList<QuoteModel>
+    fun retrievedQuotesFromDb(): MutableList<Quote>
 
-    fun deleteQuoteFromDb(quote: QuoteModel)
+    fun deleteQuoteFromDb(quote: Quote)
 
 }

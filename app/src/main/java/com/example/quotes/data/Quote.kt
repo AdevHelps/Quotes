@@ -1,3 +1,3 @@
 package com.example.quotes.data
 
-data class QuoteModel(var quote: String)
+data class Quote(var quote: String)
