@@ -1,6 +1,6 @@
-package com.example.quotes.ui
+package com.example.quotes.ui.uielements
 
-import com.example.quotes.domain.QuotesViewModel
+import com.example.quotes.ui.stateholder.QuotesViewModel
 
 interface FragmentToActivityCommunicationInterface {
 

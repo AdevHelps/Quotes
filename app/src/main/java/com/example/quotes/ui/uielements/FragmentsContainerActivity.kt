@@ -1,4 +1,4 @@
-package com.example.quotes.ui
+package com.example.quotes.ui.uielements
 
 
 import android.graphics.Color
@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.quotes.data.repository.QuotesRepositoryImpl
 import com.example.quotes.data.repository.QuotesRepositoryInterface
 import com.example.quotes.databinding.ActivityFragmentsContainerBinding
-import com.example.quotes.domain.QuotesViewModel
-import com.example.quotes.domain.QuotesViewModelFactory
+import com.example.quotes.ui.stateholder.QuotesViewModel
+import com.example.quotes.ui.stateholder.QuotesViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 
 class FragmentsContainerActivity : AppCompatActivity(), FragmentToActivityCommunicationInterface {

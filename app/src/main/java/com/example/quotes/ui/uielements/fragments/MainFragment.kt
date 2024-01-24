@@ -1,4 +1,4 @@
-package com.example.quotes.ui.view
+package com.example.quotes.ui.uielements.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -8,13 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.quotes.ui.FragmentToActivityCommunicationInterface
+import com.example.quotes.ui.uielements.FragmentToActivityCommunicationInterface
 import com.example.quotes.data.Quote
-import com.example.quotes.domain.QuotesViewModel
+import com.example.quotes.ui.stateholder.QuotesViewModel
 import com.example.quotes.R
 import com.example.quotes.databinding.FragmentMainBinding
-import com.example.quotes.ui.recyclerview.RecyclerViewAdapter
-import com.example.quotes.ui.recyclerview.RecyclerViewClickEventHandlingInterface
+import com.example.quotes.ui.uielements.recyclerview.RecyclerViewAdapter
+import com.example.quotes.ui.uielements.recyclerview.RecyclerViewClickEventHandlingInterface
 
 class MainFragment : Fragment(R.layout.fragment_main), RecyclerViewClickEventHandlingInterface {
 

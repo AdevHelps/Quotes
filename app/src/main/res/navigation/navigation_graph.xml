@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.quotes.ui.view.MainFragment"
+        android:name="com.example.quotes.ui.uielements.fragments.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/createQuoteFragment"
-        android:name="com.example.quotes.ui.view.CreateQuoteFragment"
+        android:name="com.example.quotes.ui.uielements.fragments.CreateQuoteFragment"
         android:label="fragment_enter_quote"
         tools:layout="@layout/fragment_create_quote" >
         <action
@@ -55,7 +55,7 @@
 
     <fragment
         android:id="@+id/updateQuoteFragment"
-        android:name="com.example.quotes.ui.view.UpdateQuoteFragment"
+        android:name="com.example.quotes.ui.uielements.fragments.UpdateQuoteFragment"
         android:label="fragment_update_quote"
         tools:layout="@layout/fragment_update_quote" >
         <action

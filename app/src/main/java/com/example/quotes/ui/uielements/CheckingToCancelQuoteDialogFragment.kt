@@ -1,4 +1,4 @@
-package com.example.quotes.ui
+package com.example.quotes.ui.uielements
 
 import android.app.AlertDialog
 import android.app.Dialog

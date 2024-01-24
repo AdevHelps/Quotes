@@ -1,4 +1,4 @@
-package com.example.quotes.ui.view
+package com.example.quotes.ui.uielements.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -7,12 +7,12 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.quotes.ui.FragmentToActivityCommunicationInterface
+import com.example.quotes.ui.uielements.FragmentToActivityCommunicationInterface
 import com.example.quotes.data.Quote
-import com.example.quotes.domain.QuotesViewModel
+import com.example.quotes.ui.stateholder.QuotesViewModel
 import com.example.quotes.R
 import com.example.quotes.databinding.FragmentCreateQuoteBinding
-import com.example.quotes.ui.CheckingToCancelQuoteDialogFragment
+import com.example.quotes.ui.uielements.CheckingToCancelQuoteDialogFragment
 
 class CreateQuoteFragment: Fragment(R.layout.fragment_create_quote) {
 

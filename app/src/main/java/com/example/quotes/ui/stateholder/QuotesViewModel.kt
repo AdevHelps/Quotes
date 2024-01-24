@@ -1,4 +1,4 @@
-package com.example.quotes.domain
+package com.example.quotes.ui.stateholder
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

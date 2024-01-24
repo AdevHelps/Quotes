@@ -1,4 +1,4 @@
-package com.example.quotes.ui.recyclerview
+package com.example.quotes.ui.uielements.recyclerview
 
 import com.example.quotes.data.Quote
 
