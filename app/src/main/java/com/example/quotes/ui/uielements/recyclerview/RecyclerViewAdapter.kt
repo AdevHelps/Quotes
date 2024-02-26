@@ -39,7 +39,7 @@ class RecyclerViewAdapter(
 
         fun bind(quote: Quote) {
             binding.quoteCardView.setOnClickListener {
-                recyclerViewClickEventHandling.onRvItemClick(adapterPosition, quote)
+                recyclerViewClickEventHandling.onRvItemClick(quote)
             }
         }
 

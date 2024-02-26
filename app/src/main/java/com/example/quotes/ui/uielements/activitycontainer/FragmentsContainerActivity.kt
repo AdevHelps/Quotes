@@ -1,4 +1,4 @@
-package com.example.quotes.ui.uielements
+package com.example.quotes.ui.uielements.activitycontainer
 
 
 import android.graphics.Color

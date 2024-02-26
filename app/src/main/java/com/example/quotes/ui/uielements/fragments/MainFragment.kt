@@ -8,13 +8,16 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.quotes.ui.uielements.FragmentToActivityCommunicationInterface
+import com.example.quotes.ui.uielements.activitycontainer.FragmentToActivityCommunicationInterface
 import com.example.quotes.data.Quote
 import com.example.quotes.ui.stateholder.QuotesViewModel
 import com.example.quotes.R
 import com.example.quotes.databinding.FragmentMainBinding
 import com.example.quotes.ui.uielements.recyclerview.RecyclerViewAdapter
 import com.example.quotes.ui.uielements.recyclerview.RecyclerViewClickEventHandlingInterface
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainFragment : Fragment(R.layout.fragment_main), RecyclerViewClickEventHandlingInterface {
 
@@ -47,20 +50,26 @@ class MainFragment : Fragment(R.layout.fragment_main), RecyclerViewClickEventHan
             }
 
             quotesViewModel = fragmentToActivityCommunicationInterface.initializeQuotesViewModel()
-            quotesViewModel.getQuotesListFromRepository().observe(requireActivity()) { quotesList ->
+            CoroutineScope(Dispatchers.Main).launch {
+                quotesViewModel.getQuotesListFromRepository()
+                    .observe(viewLifecycleOwner) { quotesList ->
 
-                adapter = RecyclerViewAdapter(quotesList, this@MainFragment)
-                recyclerView.adapter = adapter
-                recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                        adapter = RecyclerViewAdapter(
+                            quotesList,
+                            this@MainFragment
+                        )
+                        recyclerView.adapter = adapter
+                        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-                if (quotesList.size > 0) {
-                    binding.noItemsLinearLayout.visibility = View.GONE
-                }
+                        if (quotesList.size > 0) {
+                            binding.noItemsLinearLayout.visibility = View.GONE
+                        }
+                    }
             }
         }
     }
 
-    override fun onRvItemClick(position: Int, quote: Quote) {
+    override fun onRvItemClick(quote: Quote) {
         val action =
             MainFragmentDirections.actionMainFragmentToUpdateQuoteFragment(quote.quote)
         findNavController().navigate(action)

@@ -8,12 +8,12 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.quotes.ui.uielements.FragmentToActivityCommunicationInterface
+import com.example.quotes.ui.uielements.activitycontainer.FragmentToActivityCommunicationInterface
 import com.example.quotes.data.Quote
 import com.example.quotes.ui.stateholder.QuotesViewModel
 import com.example.quotes.R
 import com.example.quotes.databinding.FragmentUpdateQuoteBinding
-import com.example.quotes.ui.uielements.CheckingToCancelQuoteDialogFragment
+import com.example.quotes.ui.uielements.Utility
 
 class UpdateQuoteFragment : Fragment(R.layout.fragment_update_quote) {
 
@@ -34,15 +34,11 @@ class UpdateQuoteFragment : Fragment(R.layout.fragment_update_quote) {
             override fun handleOnBackPressed() {
 
                 if (updatedQuote.toString() != outdatedQuote) {
-                    CheckingToCancelQuoteDialogFragment().show(
-                        childFragmentManager,
-                        "checkingToCancelQuoteDialogFragment"
-                    )
+                    Utility.showQuitWithoutSavingDialog(requireContext(), findNavController())
 
                 } else findNavController().navigate(R.id.action_updateQuoteFragment_to_mainFragment)
             }
         }
-
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
@@ -51,18 +47,20 @@ class UpdateQuoteFragment : Fragment(R.layout.fragment_update_quote) {
         binding = FragmentUpdateQuoteBinding.bind(view)
         binding.apply {
 
-            updatedQuoteEditeText.requestFocus()
-            updatedQuoteEditeText.setSelection(updatedQuoteEditeText.text.length)
+            updateQuoteTextInputFieldEditText.requestFocus()
+            updateQuoteTextInputFieldEditText.setSelection(
+                updateQuoteTextInputFieldEditText.text!!.length
+            )
 
             quotesViewModel = fragmentToActivityCommunicationInterface.initializeQuotesViewModel()
 
             outdatedQuote = args.quote
-            updatedQuoteEditeText.text = Editable.Factory.getInstance().newEditable(outdatedQuote)
+            updateQuoteTextInputFieldEditText.setText(outdatedQuote)
 
-            updatedQuote = updatedQuoteEditeText.text
+            updatedQuote = updateQuoteTextInputFieldEditText.text!!
             updateQuoteFAB.setOnClickListener {
 
-                if (updatedQuoteEditeText.text.toString().isEmpty()) {
+                if (updateQuoteTextInputFieldEditText.text.toString().isEmpty()) {
                     fragmentToActivityCommunicationInterface.showSnackBar("Empty field")
 
                 }
@@ -74,7 +72,7 @@ class UpdateQuoteFragment : Fragment(R.layout.fragment_update_quote) {
                         outdatedQuoteEncapsulated,
                         updatedQuoteEncapsulated
                     )
-                    findNavController().navigate(R.id.action_updateQuoteFragment_to_mainFragment)
+                    findNavController().popBackStack()
 
                 } else {
                     val action =

@@ -4,7 +4,7 @@ import com.example.quotes.data.Quote
 
 interface RecyclerViewClickEventHandlingInterface {
 
-    fun onRvItemClick(position: Int, quote: Quote)
+    fun onRvItemClick(quote: Quote)
     fun onRvItemLongClick(position: Int, quotesList: MutableList<Quote>)
 
 }

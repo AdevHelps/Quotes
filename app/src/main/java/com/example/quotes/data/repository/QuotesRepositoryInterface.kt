@@ -8,7 +8,7 @@ interface QuotesRepositoryInterface {
 
     fun updateQuoteInDb(currentQuote: Quote, newQuote: Quote)
 
-    fun retrievedQuotesFromDb(): MutableList<Quote>
+    suspend fun retrievedQuotesFromDb(): MutableList<Quote>
 
     fun deleteQuoteFromDb(quote: Quote)
 

@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Quotes"
         tools:targetApi="31">
         <activity
-            android:name=".ui.uielements.FragmentsContainerActivity"
+            android:name=".ui.uielements.activitycontainer.FragmentsContainerActivity"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"

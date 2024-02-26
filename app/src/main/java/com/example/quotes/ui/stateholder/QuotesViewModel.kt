@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.quotes.data.Quote
 import com.example.quotes.data.repository.QuotesRepositoryInterface
 
-class QuotesViewModel(val quotesRepositoryInterface: QuotesRepositoryInterface) : ViewModel() {
+class QuotesViewModel(private val quotesRepositoryInterface: QuotesRepositoryInterface) : ViewModel() {
 
     fun quoteToRepository(quote: Quote){
         quotesRepositoryInterface.quoteToDb(quote)
@@ -15,7 +15,7 @@ class QuotesViewModel(val quotesRepositoryInterface: QuotesRepositoryInterface) 
         quotesRepositoryInterface.updateQuoteInDb(currentQuote, newQuote)
     }
 
-    fun getQuotesListFromRepository(): MutableLiveData<MutableList<Quote>> {
+    suspend fun getQuotesListFromRepository(): MutableLiveData<MutableList<Quote>> {
         val quotesMutableLiveData = MutableLiveData<MutableList<Quote>>()
         quotesMutableLiveData.value = quotesRepositoryInterface.retrievedQuotesFromDb()
         return quotesMutableLiveData

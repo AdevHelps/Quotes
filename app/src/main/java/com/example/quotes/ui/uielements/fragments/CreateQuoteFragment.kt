@@ -7,12 +7,12 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.quotes.ui.uielements.FragmentToActivityCommunicationInterface
+import com.example.quotes.ui.uielements.activitycontainer.FragmentToActivityCommunicationInterface
 import com.example.quotes.data.Quote
 import com.example.quotes.ui.stateholder.QuotesViewModel
 import com.example.quotes.R
 import com.example.quotes.databinding.FragmentCreateQuoteBinding
-import com.example.quotes.ui.uielements.CheckingToCancelQuoteDialogFragment
+import com.example.quotes.ui.uielements.Utility
 
 class CreateQuoteFragment: Fragment(R.layout.fragment_create_quote) {
 
@@ -30,16 +30,11 @@ class CreateQuoteFragment: Fragment(R.layout.fragment_create_quote) {
             override fun handleOnBackPressed() {
 
                 if (quoteEditTextField.isNotEmpty()) {
-
-                    CheckingToCancelQuoteDialogFragment().show(
-                        childFragmentManager,
-                        "checkingToCancelQuoteDialogFragment"
-                    )
+                    Utility.showQuitWithoutSavingDialog(requireContext(), findNavController())
 
                 } else findNavController().popBackStack()
             }
         }
-
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
@@ -48,23 +43,22 @@ class CreateQuoteFragment: Fragment(R.layout.fragment_create_quote) {
         binding = FragmentCreateQuoteBinding.bind(view)
         binding.apply {
 
-            quoteET.requestFocus()
-            quoteET.setSelection(quoteET.text.length)
-            quoteEditTextField = binding.quoteET.text
+            createQuoteTextInputEditText.requestFocus()
+            createQuoteTextInputEditText.setSelection(createQuoteTextInputEditText.text!!.length)
+            quoteEditTextField = binding.createQuoteTextInputEditText.text!!
 
             quotesViewModel = fragmentToActivityCommunicationInterface.initializeQuotesViewModel()
 
             insertQuoteFAB.setOnClickListener {
-                val quote = binding.quoteET.text.toString()
+                val quote = binding.createQuoteTextInputEditText.text.toString()
 
                 if (quoteEditTextField.isEmpty()) {
                     fragmentToActivityCommunicationInterface.showSnackBar("Empty field")
 
                 } else {
-
                     val quoteEncapsulated = Quote(quote.trim())
                     quotesViewModel.quoteToRepository(quoteEncapsulated)
-                    findNavController().navigate(R.id.action_enterQuoteFragment_to_mainFragment)
+                    findNavController().popBackStack()
                 }
             }
         }
