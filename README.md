@@ -19,7 +19,7 @@ Quotes is an app designed to help you save and revisit your favorite quotes. Thi
 Long click to delete the quote
 
 ## Considerations
-Quotes only uses the dark theme
+Quotes only has one theme mode
 
 ## About the app
 Quotes uses:
