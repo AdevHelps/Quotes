@@ -10,6 +10,8 @@ interface QuotesRepositoryInterface {
 
     suspend fun retrievedQuotesFromDb(): MutableList<Quote>
 
+    fun getQuotesListSize(): Int
+
     fun deleteQuoteFromDb(quote: Quote)
 
 }

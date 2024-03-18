@@ -1,16 +1,16 @@
 package com.example.quotes.data.repository
 
-import android.content.Context
 import com.example.quotes.data.Quote
-import com.example.quotes.data.SqliteDatabase
+import com.example.quotes.data.source.SqliteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class QuotesRepositoryImpl(context: Context): QuotesRepositoryInterface {
+class QuotesRepositoryImpl @Inject constructor(): QuotesRepositoryInterface {
 
-    private var sqliteDatabase = SqliteDatabase(context)
+    @Inject lateinit var sqliteDatabase: SqliteDatabase
 
     override fun quoteToDb(quote: Quote) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -28,6 +28,10 @@ class QuotesRepositoryImpl(context: Context): QuotesRepositoryInterface {
         return withContext(Dispatchers.IO) {
             sqliteDatabase.retrieveAllQuotes()
         }
+    }
+
+    override fun getQuotesListSize(): Int {
+        return sqliteDatabase.getTableSize()
     }
 
     override fun deleteQuoteFromDb(quote: Quote) {

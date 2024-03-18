@@ -24,7 +24,7 @@
         <item name="colorOnSurface">@color/onSurface</item>
         <item name="colorSurfaceVariant">@color/surfaceVariant</item>
         <item name="colorOnSurfaceVariant">@color/onSurfaceVariant</item>
-        <item name="colorOutline">@color/outline</item>
+        <item name="colorOutline">@color/milkyYellow</item>
         <item name="colorOnSurfaceInverse">@color/inverseOnSurface</item>
         <item name="colorSurfaceInverse">@color/inverseSurface</item>
         <item name="colorPrimaryInverse">@color/inversePrimary</item>
@@ -52,7 +52,8 @@
     </style>
 
     <style name="customAlertDialogTheme">
-        <item name="colorPrimary">@color/grey</item>
+        <item name="android:background">@color/grey</item>
+        <item name="colorOnSurfaceVariant">@color/white</item>
     </style>
 
     <style name="Theme.Quotes" parent="Base.Theme.Quotes" />

@@ -1,13 +1,15 @@
-package com.example.quotes.data
+package com.example.quotes.data.source
 
+import android.app.Application
 import android.content.ContentValues
-import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.quotes.data.Quote
+import javax.inject.Inject
 
-class SqliteDatabase(
-    context: Context
-): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+class SqliteDatabase @Inject constructor(
+    application: Application
+): SQLiteOpenHelper(application, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
 
@@ -41,7 +43,12 @@ class SqliteDatabase(
         val sqliteDatabase = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put(QUOTES_COLUMN, newQuote.quote)
-        sqliteDatabase.update(QUOTES_TABLE, contentValues, "Quote=?", arrayOf(currentQuote.quote))
+        sqliteDatabase.update(
+            QUOTES_TABLE,
+            contentValues,
+            "Quote=?",
+            arrayOf(currentQuote.quote)
+        )
     }
 
     fun retrieveAllQuotes(): MutableList<Quote> {
@@ -57,6 +64,17 @@ class SqliteDatabase(
         }
         cursor.close()
         return quotesList
+    }
+
+    fun getTableSize(): Int {
+        val sqliteDatabase = this.readableDatabase
+        var size = 0
+        val cursor = sqliteDatabase.rawQuery("SELECT COUNT(*) FROM $QUOTES_TABLE", null)
+        if (cursor.moveToFirst()) {
+            size = cursor.getInt(0)
+        }
+        cursor.close()
+        return size
     }
 
     fun deleteQuote(quote: Quote) {

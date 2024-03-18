@@ -4,8 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.quotes.data.repository.QuotesRepositoryInterface
 import java.lang.IllegalArgumentException
+import javax.inject.Inject
 
-class QuotesViewModelFactory(
+class QuotesViewModelFactory @Inject constructor(
     private val quotesRepositoryInterface: QuotesRepositoryInterface
 ): ViewModelProvider.Factory {
 
