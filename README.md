@@ -5,7 +5,6 @@
 
 Quotes is an app designed to help you save and revisit your favorite quotes. This app serves as your personal note, allowing you to easily access and review your favorite quotes whenever you need a boost of motivation.
 
-# Screenshots:
 <table>
    <tr>
     <td align="center"><img src="https://github.com/AdevHelps/Quotes/assets/149101953/d42017ce-f2ae-4989-9713-f2377633161b" width="300" alt="Screenshot 1"></td>

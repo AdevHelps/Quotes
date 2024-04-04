@@ -7,12 +7,14 @@ import com.example.quotes.ui.uielements.activitycontainer.FragmentsContainerActi
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
+import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class InterfaceBinder {
 
+    @ViewModelScoped
     @Binds
     abstract fun bindQuotesRepositoryInterface(
         quotesRepositoryImpl: QuotesRepositoryImpl
