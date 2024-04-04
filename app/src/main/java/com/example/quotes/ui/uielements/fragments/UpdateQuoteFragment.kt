@@ -2,6 +2,7 @@ package com.example.quotes.ui.uielements.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
@@ -12,10 +13,9 @@ import com.example.quotes.ui.uielements.activitycontainer.FragmentToActivityComm
 import com.example.quotes.data.Quote
 import com.example.quotes.ui.stateholder.QuotesViewModel
 import com.example.quotes.R
-import com.example.quotes.data.repository.QuotesRepositoryInterface
 import com.example.quotes.databinding.FragmentUpdateQuoteBinding
-import com.example.quotes.ui.stateholder.QuotesViewModelFactory
-import com.example.quotes.ui.uielements.Utility
+import com.example.quotes.ui.util.requestFocusAndShowKeyboard
+import com.example.quotes.ui.util.showQuitWithoutSavingDialog
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -24,7 +24,6 @@ class UpdateQuoteFragment : Fragment(R.layout.fragment_update_quote) {
 
     private lateinit var binding: FragmentUpdateQuoteBinding
     @Inject lateinit var fragmentToActivityCommunicationInterface: FragmentToActivityCommunicationInterface
-    @Inject lateinit var quotesRepositoryInterface: QuotesRepositoryInterface
     private val args: UpdateQuoteFragmentArgs by navArgs()
 
     override fun onAttach(context: Context) {
@@ -38,10 +37,9 @@ class UpdateQuoteFragment : Fragment(R.layout.fragment_update_quote) {
         binding = FragmentUpdateQuoteBinding.bind(view)
         binding.apply {
 
-            val quotesViewModelFactory = QuotesViewModelFactory(quotesRepositoryInterface)
-            val quotesViewModel by viewModels<QuotesViewModel> { quotesViewModelFactory }
+            val quotesViewModel by viewModels<QuotesViewModel>()
 
-            Utility.requestFocusAndShowKeyboard(updateQuoteTextInputFieldEditText, requireActivity())
+            requestFocusAndShowKeyboard(updateQuoteTextInputFieldEditText, requireActivity())
             updateQuoteTextInputFieldEditText.setSelection(
                 updateQuoteTextInputFieldEditText.text!!.length
             )
@@ -52,22 +50,29 @@ class UpdateQuoteFragment : Fragment(R.layout.fragment_update_quote) {
 
                 if (updateQuoteTextInputFieldEditText.text.toString().isEmpty()) {
                     fragmentToActivityCommunicationInterface.showSnackBar("Empty field")
-
+                    return@setOnClickListener
                 }
 
-                if (updateQuoteTextInputFieldEditText.text.toString() != args.quote) {
+                if (updateQuoteTextInputFieldEditText.text.toString().trim() != args.quote) {
                     val outdatedQuoteEncapsulated = Quote(args.quote)
                     val updatedQuoteEncapsulated =
                         Quote(updateQuoteTextInputFieldEditText.text.toString().trim())
-                    quotesViewModel.updatedQuoteToRepository(
+                    quotesViewModel.updatedQuote(
                         outdatedQuoteEncapsulated,
                         updatedQuoteEncapsulated
                     )
-                    findNavController().popBackStack()
+
+                    val action =
+                        UpdateQuoteFragmentDirections.actionUpdateQuoteFragmentToMainFragment(
+                            false
+                        )
+                    findNavController().navigate(action)
 
                 } else {
                     val action =
-                        UpdateQuoteFragmentDirections.actionUpdateQuoteFragmentToMainFragment(true)
+                        UpdateQuoteFragmentDirections.actionUpdateQuoteFragmentToMainFragment(
+                            true
+                        )
                     findNavController().navigate(action)
                 }
             }
@@ -76,7 +81,7 @@ class UpdateQuoteFragment : Fragment(R.layout.fragment_update_quote) {
                 override fun handleOnBackPressed() {
 
                     if (updateQuoteTextInputFieldEditText.text.toString() != args.quote) {
-                        Utility.showQuitWithoutSavingDialog(requireContext(), findNavController())
+                        showQuitWithoutSavingDialog(requireContext(), findNavController())
 
                     } else findNavController().navigate(R.id.action_updateQuoteFragment_to_mainFragment)
                 }

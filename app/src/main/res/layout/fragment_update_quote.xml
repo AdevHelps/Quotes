@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/updateQuoteMainLayout"
@@ -8,30 +9,19 @@
     tools:context=".ui.uielements.fragments.UpdateQuoteFragment">
 
     <TextView
-        style="@style/customHeaderTextView"
         android:id="@+id/updateQuoteTv"
+        style="@style/customHeaderTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:text="@string/update_quote"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/update_quote" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/updateQuoteTextInputFieldLayout"
+        style="@style/customTextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_25sdp"
-        android:layout_marginTop="@dimen/_70sdp"
-        android:layout_marginEnd="@dimen/_25sdp"
         android:hint="@string/update_quote_here"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/updateQuoteTv">
+        android:layout_below="@+id/updateQuoteTv">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/updateQuoteTextInputFieldEditText"
@@ -41,15 +31,11 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        style="@style/customFloatingActionButton"
         android:id="@+id/updateQuoteFAB"
+        style="@style/customFloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/_18sdp"
-        android:layout_marginBottom="@dimen/_18sdp"
         android:contentDescription="@string/save_changes"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/save_ic" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

@@ -1,5 +1,6 @@
 package com.example.quotes.data.repository
 
+import android.app.Application
 import com.example.quotes.data.Quote
 import com.example.quotes.data.source.SqliteDatabase
 import kotlinx.coroutines.CoroutineScope
@@ -8,23 +9,25 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class QuotesRepositoryImpl @Inject constructor(): QuotesRepositoryInterface {
+class QuotesRepositoryImpl @Inject constructor(
+    private val application: Application
+): QuotesRepositoryInterface {
 
-    @Inject lateinit var sqliteDatabase: SqliteDatabase
+    private val sqliteDatabase by lazy { SqliteDatabase(application) }
 
-    override fun quoteToDb(quote: Quote) {
+    override fun insertQuote(quote: Quote) {
         CoroutineScope(Dispatchers.IO).launch {
             sqliteDatabase.insertQuote(quote)
         }
     }
 
-    override fun updateQuoteInDb(currentQuote: Quote, newQuote: Quote) {
+    override fun updateQuote(currentQuote: Quote, newQuote: Quote) {
         CoroutineScope(Dispatchers.IO).launch {
             sqliteDatabase.updateQuote(currentQuote, newQuote)
         }
     }
 
-    override suspend fun retrievedQuotesFromDb(): MutableList<Quote> {
+    override suspend fun retrievedQuotes(): MutableList<Quote> {
         return withContext(Dispatchers.IO) {
             sqliteDatabase.retrieveAllQuotes()
         }
@@ -34,7 +37,7 @@ class QuotesRepositoryImpl @Inject constructor(): QuotesRepositoryInterface {
         return sqliteDatabase.getTableSize()
     }
 
-    override fun deleteQuoteFromDb(quote: Quote) {
+    override fun deleteQuote(quote: Quote) {
         CoroutineScope(Dispatchers.IO).launch {
             sqliteDatabase.deleteQuote(quote)
         }

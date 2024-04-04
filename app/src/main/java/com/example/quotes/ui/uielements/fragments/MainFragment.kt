@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,9 +12,7 @@ import com.example.quotes.ui.uielements.activitycontainer.FragmentToActivityComm
 import com.example.quotes.data.Quote
 import com.example.quotes.ui.stateholder.QuotesViewModel
 import com.example.quotes.R
-import com.example.quotes.data.repository.QuotesRepositoryInterface
 import com.example.quotes.databinding.FragmentMainBinding
-import com.example.quotes.ui.stateholder.QuotesViewModelFactory
 import com.example.quotes.ui.uielements.recyclerview.RecyclerViewAdapter
 import com.example.quotes.ui.uielements.recyclerview.RecyclerViewClickEventHandlingInterface
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,8 +27,7 @@ class MainFragment : Fragment(R.layout.fragment_main), RecyclerViewClickEventHan
     private lateinit var binding: FragmentMainBinding
     private lateinit var adapter: RecyclerViewAdapter
     @Inject lateinit var fragmentToActivityCommunicationInterface: FragmentToActivityCommunicationInterface
-    @Inject lateinit var quotesRepositoryInterface: QuotesRepositoryInterface
-    private lateinit var quotesViewModel: QuotesViewModel
+    private val quotesViewModel by viewModels<QuotesViewModel>()
     private val args: MainFragmentArgs by navArgs()
 
     override fun onAttach(context: Context) {
@@ -43,21 +40,15 @@ class MainFragment : Fragment(R.layout.fragment_main), RecyclerViewClickEventHan
         binding = FragmentMainBinding.bind(view)
         binding.apply {
 
-            val quotesViewModelFactory = QuotesViewModelFactory(quotesRepositoryInterface)
-            quotesViewModel = ViewModelProvider(
-                this@MainFragment,
-                quotesViewModelFactory
-            )[QuotesViewModel::class.java]
-
-            quotesViewModel.getQuotesListSizeFromRepository()
+            quotesViewModel.getQuotesListSize()
                 .observe(viewLifecycleOwner) { quotesListSize ->
                     if (quotesListSize > 0) {
-                        binding.noItemsLinearLayout.visibility = View.GONE
+                        binding.noQuotesAvailableLL.visibility = View.GONE
                     }
             }
 
             CoroutineScope(Dispatchers.Main).launch {
-                quotesViewModel.getQuotesListFromRepository()
+                quotesViewModel.getQuotesList()
                     .observe(viewLifecycleOwner) { quotesList ->
 
                         adapter = RecyclerViewAdapter(
@@ -87,12 +78,12 @@ class MainFragment : Fragment(R.layout.fragment_main), RecyclerViewClickEventHan
     }
 
     override fun onRvItemLongClick(position: Int, quotesList: MutableList<Quote>) {
-        quotesViewModel.requestQuoteDeleteToRepository(quotesList[position])
+        quotesViewModel.requestQuoteDelete(quotesList[position])
         quotesList.removeAt(position)
         adapter.notifyItemRemoved(position)
 
         if (quotesList.size == 0) {
-            binding.noItemsLinearLayout.visibility = View.VISIBLE
+            binding.noQuotesAvailableLL.visibility = View.VISIBLE
         }
     }
 }

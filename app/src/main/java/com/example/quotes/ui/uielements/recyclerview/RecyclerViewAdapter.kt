@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.quotes.data.Quote
-import com.example.quotes.databinding.RecyclerviewRowDesignBinding
+import com.example.quotes.databinding.QuoteRowDesignBinding
 
 class RecyclerViewAdapter(
     private val quotesList: MutableList<Quote>,
@@ -13,7 +13,7 @@ class RecyclerViewAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuotesViewHolder {
         return QuotesViewHolder(
-            RecyclerviewRowDesignBinding.inflate(
+            QuoteRowDesignBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -34,7 +34,7 @@ class RecyclerViewAdapter(
     }
 
     inner class QuotesViewHolder(
-        val binding: RecyclerviewRowDesignBinding
+        val binding: QuoteRowDesignBinding
     ): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(quote: Quote) {

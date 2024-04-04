@@ -8,31 +8,31 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class QuotesViewModel @Inject constructor(
-    private val quotesRepositoryInterface: QuotesRepositoryInterface
-): ViewModel() {
+class QuotesViewModel @Inject constructor(): ViewModel() {
 
-    fun quoteToRepository(quote: Quote){
-        quotesRepositoryInterface.quoteToDb(quote)
+    @Inject lateinit var quotesRepositoryInterface: QuotesRepositoryInterface
+
+    fun insertQuote(quote: Quote){
+        quotesRepositoryInterface.insertQuote(quote)
     }
 
-    fun updatedQuoteToRepository(currentQuote: Quote, newQuote: Quote){
-        quotesRepositoryInterface.updateQuoteInDb(currentQuote, newQuote)
+    fun updatedQuote(currentQuote: Quote, newQuote: Quote){
+        quotesRepositoryInterface.updateQuote(currentQuote, newQuote)
     }
 
-    suspend fun getQuotesListFromRepository(): MutableLiveData<MutableList<Quote>> {
+    suspend fun getQuotesList(): MutableLiveData<MutableList<Quote>> {
         val quotesLiveData = MutableLiveData<MutableList<Quote>>()
-        quotesLiveData.value = quotesRepositoryInterface.retrievedQuotesFromDb()
+        quotesLiveData.value = quotesRepositoryInterface.retrievedQuotes()
         return quotesLiveData
     }
 
-    fun getQuotesListSizeFromRepository(): MutableLiveData<Int> {
+    fun getQuotesListSize(): MutableLiveData<Int> {
         val quotesListSizeLiveData = MutableLiveData<Int>()
         quotesListSizeLiveData.value = quotesRepositoryInterface.getQuotesListSize()
         return quotesListSizeLiveData
     }
 
-    fun requestQuoteDeleteToRepository(quote: Quote){
-        quotesRepositoryInterface.deleteQuoteFromDb(quote)
+    fun requestQuoteDelete(quote: Quote){
+        quotesRepositoryInterface.deleteQuote(quote)
     }
 }

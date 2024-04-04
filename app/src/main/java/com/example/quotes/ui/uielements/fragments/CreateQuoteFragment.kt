@@ -11,10 +11,9 @@ import com.example.quotes.ui.uielements.activitycontainer.FragmentToActivityComm
 import com.example.quotes.data.Quote
 import com.example.quotes.ui.stateholder.QuotesViewModel
 import com.example.quotes.R
-import com.example.quotes.data.repository.QuotesRepositoryInterface
 import com.example.quotes.databinding.FragmentCreateQuoteBinding
-import com.example.quotes.ui.stateholder.QuotesViewModelFactory
-import com.example.quotes.ui.uielements.Utility
+import com.example.quotes.ui.util.requestFocusAndShowKeyboard
+import com.example.quotes.ui.util.showQuitWithoutSavingDialog
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -23,7 +22,6 @@ class CreateQuoteFragment: Fragment(R.layout.fragment_create_quote) {
 
     private lateinit var binding: FragmentCreateQuoteBinding
     @Inject lateinit var fragmentToActivityCommunicationInterface: FragmentToActivityCommunicationInterface
-    @Inject lateinit var quotesRepositoryInterface: QuotesRepositoryInterface
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -36,21 +34,21 @@ class CreateQuoteFragment: Fragment(R.layout.fragment_create_quote) {
         binding = FragmentCreateQuoteBinding.bind(view)
         binding.apply {
 
-            val quotesViewModelFactory = QuotesViewModelFactory(quotesRepositoryInterface)
-            val quotesViewModel by viewModels<QuotesViewModel> { quotesViewModelFactory }
+            val quotesViewModel by viewModels<QuotesViewModel>()
 
-            Utility.requestFocusAndShowKeyboard(createQuoteTextInputEditText, requireActivity())
+            requestFocusAndShowKeyboard(createQuoteTextInputEditText, requireActivity())
             createQuoteTextInputEditText.setSelection(createQuoteTextInputEditText.text!!.length)
 
             insertQuoteFAB.setOnClickListener {
-                val quote = binding.createQuoteTextInputEditText.text.toString()
+
+                val quote = binding.createQuoteTextInputEditText.text.toString().trim()
 
                 if (createQuoteTextInputEditText.text.isNullOrEmpty()) {
                     fragmentToActivityCommunicationInterface.showSnackBar("Empty field")
 
                 } else {
-                    val quoteEncapsulated = Quote(quote.trim())
-                    quotesViewModel.quoteToRepository(quoteEncapsulated)
+                    val quoteEncapsulated = Quote(quote)
+                    quotesViewModel.insertQuote(quoteEncapsulated)
                     findNavController().popBackStack()
                 }
             }
@@ -59,7 +57,7 @@ class CreateQuoteFragment: Fragment(R.layout.fragment_create_quote) {
                 override fun handleOnBackPressed() {
 
                     if (createQuoteTextInputEditText.text.toString().isNotEmpty()) {
-                        Utility.showQuitWithoutSavingDialog(requireContext(), findNavController())
+                        showQuitWithoutSavingDialog(requireContext(), findNavController())
 
                     } else findNavController().navigate(R.id.action_createQuoteFragment_to_mainFragment)
                 }
