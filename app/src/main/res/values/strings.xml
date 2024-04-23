@@ -11,4 +11,6 @@
     <string name="quote_image">quote_image</string>
     <string name="no_quotes_available">No Quotes Available</string>
     <string name="no_quote_available_image_view">no quote available image view</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
 </resources>

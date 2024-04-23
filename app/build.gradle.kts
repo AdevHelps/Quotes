@@ -1,9 +1,9 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("androidx.navigation.safeargs.kotlin")
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.jetbrainsKotlinAndroid)
     kotlin("kapt")
-    id("com.google.dagger.hilt.android")
+    alias(libs.plugins.androidx.navigation.safeargs)
+    alias(libs.plugins.dagger.hilt)
 }
 
 android {
@@ -46,23 +46,26 @@ kapt {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
 
-    implementation("com.intuit.sdp:sdp-android:1.1.0")
-    implementation ("com.intuit.ssp:ssp-android:1.1.0")
+    // SDP - a scalable size unit
+    implementation(libs.sdp.android)
+    // SSP - a scalable size unit for texts
+    implementation(libs.ssp.android)
 
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
+    // Android Jetpack Navigation
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
 
-    implementation("com.google.dagger:hilt-android:2.49")
-    kapt("com.google.dagger:hilt-android-compiler:2.49")
+    // Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
 
-    testImplementation("junit:junit:4.13.2")
-
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 }

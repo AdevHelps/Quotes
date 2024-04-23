@@ -10,8 +10,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class FragmentsContainerActivity @Inject constructor(
-): AppCompatActivity(), FragmentToActivityCommunicationInterface {
+class FragmentsContainerActivity @Inject constructor(): AppCompatActivity(),
+    FragmentToActivityCommunicationInterface {
 
     private lateinit var binding: ActivityFragmentsContainerBinding
 

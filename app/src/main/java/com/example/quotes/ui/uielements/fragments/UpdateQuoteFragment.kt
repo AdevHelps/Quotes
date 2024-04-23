@@ -2,7 +2,6 @@ package com.example.quotes.ui.uielements.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
