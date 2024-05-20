@@ -16,30 +16,22 @@ class QuotesRepositoryImpl @Inject constructor(
     private val sqliteDatabase by lazy { SqliteDatabase(application) }
 
     override fun insertQuote(quote: Quote) {
-        CoroutineScope(Dispatchers.IO).launch {
-            sqliteDatabase.insertQuote(quote)
-        }
+        sqliteDatabase.insertQuote(quote)
     }
 
-    override fun updateQuote(currentQuote: Quote, newQuote: Quote) {
-        CoroutineScope(Dispatchers.IO).launch {
-            sqliteDatabase.updateQuote(currentQuote, newQuote)
-        }
+    override suspend fun updateQuote(currentQuote: Quote, newQuote: Quote) {
+        sqliteDatabase.updateQuote(currentQuote, newQuote)
     }
 
     override suspend fun retrievedQuotes(): MutableList<Quote> {
-        return withContext(Dispatchers.IO) {
-            sqliteDatabase.retrieveAllQuotes()
-        }
+        return sqliteDatabase.retrieveAllQuotes()
     }
 
     override fun getQuotesListSize(): Int {
         return sqliteDatabase.getTableSize()
     }
 
-    override fun deleteQuote(quote: Quote) {
-        CoroutineScope(Dispatchers.IO).launch {
-            sqliteDatabase.deleteQuote(quote)
-        }
+    override suspend fun deleteQuote(quote: Quote) {
+        sqliteDatabase.deleteQuote(quote)
     }
 }

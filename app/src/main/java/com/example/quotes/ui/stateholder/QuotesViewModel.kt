@@ -2,9 +2,11 @@ package com.example.quotes.ui.stateholder
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.quotes.data.Quote
 import com.example.quotes.data.repository.QuotesRepositoryInterface
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -13,11 +15,15 @@ class QuotesViewModel @Inject constructor(): ViewModel() {
     @Inject lateinit var quotesRepositoryInterface: QuotesRepositoryInterface
 
     fun insertQuote(quote: Quote){
-        quotesRepositoryInterface.insertQuote(quote)
+        viewModelScope.launch {
+            quotesRepositoryInterface.insertQuote(quote)
+        }
     }
 
     fun updatedQuote(currentQuote: Quote, newQuote: Quote){
-        quotesRepositoryInterface.updateQuote(currentQuote, newQuote)
+        viewModelScope.launch {
+            quotesRepositoryInterface.updateQuote(currentQuote, newQuote)
+        }
     }
 
     suspend fun getQuotesList(): MutableLiveData<MutableList<Quote>> {
@@ -33,6 +39,8 @@ class QuotesViewModel @Inject constructor(): ViewModel() {
     }
 
     fun requestQuoteDelete(quote: Quote){
-        quotesRepositoryInterface.deleteQuote(quote)
+        viewModelScope.launch {
+            quotesRepositoryInterface.deleteQuote(quote)
+        }
     }
 }

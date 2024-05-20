@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,8 +17,6 @@ import com.example.quotes.databinding.FragmentMainBinding
 import com.example.quotes.ui.uielements.recyclerview.RecyclerViewAdapter
 import com.example.quotes.ui.uielements.recyclerview.RecyclerViewClickEventHandlingInterface
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -47,7 +46,7 @@ class MainFragment : Fragment(R.layout.fragment_main), RecyclerViewClickEventHan
                     }
             }
 
-            CoroutineScope(Dispatchers.Main).launch {
+            lifecycleScope.launch {
                 quotesViewModel.getQuotesList()
                     .observe(viewLifecycleOwner) { quotesList ->
 
